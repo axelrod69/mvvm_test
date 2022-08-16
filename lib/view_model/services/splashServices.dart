@@ -6,7 +6,6 @@ import '../userViewModel.dart';
 import '../../model/userModel.dart';
 
 class SplashServices {
-
   Future<Payload> getToken() => UserViewModel().getUser();
 
   void authenticate(BuildContext context) async {
@@ -15,13 +14,13 @@ class SplashServices {
     // String? token = localStorage.getString('token');
 
     getToken().then((value) {
-      if (value.access == null || value.access == '') {
+      if (value.access == 'null' || value.access == '') {
         Navigator.pushNamed(context, RouteNames.login);
       } else {
         Navigator.pushNamed(context, RouteNames.home);
       }
     }).onError((error, stackTrace) {
-      if(kDebugMode) {
+      if (kDebugMode) {
         print(error.toString());
       }
     });

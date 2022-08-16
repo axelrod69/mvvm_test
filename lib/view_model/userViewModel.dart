@@ -3,7 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../model/userModel.dart';
 
 class UserViewModel with ChangeNotifier {
-
   Future<bool> saveUser(Payload user) async {
     final SharedPreferences localStorage =
         await SharedPreferences.getInstance();
@@ -17,12 +16,14 @@ class UserViewModel with ChangeNotifier {
         await SharedPreferences.getInstance();
     final String? token = localStorage.getString('token');
 
-    return Payload(access: token);
+    return Payload(access: token.toString());
   }
 
-  void remove() async {
+  Future<bool> logOut() async {
     final SharedPreferences localStorage =
         await SharedPreferences.getInstance();
-    localStorage.clear();
+
+    localStorage.remove('token');
+    return true;
   }
 }
